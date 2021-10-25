@@ -1,0 +1,9 @@
+-----BEGIN CERTIFICATE-----
+<<Root certificate>>
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+<<Intermediate certificate>>
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+<<Server certificate>>
+-----END CERTIFICATE-----
