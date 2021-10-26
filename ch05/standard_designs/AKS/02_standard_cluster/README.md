@@ -5,34 +5,24 @@
                                                 |
                                                 |
                                  +--------------+--------------+
-                                 |StandardLoadBalancer |
-                                 |Type: Basic                  |            
+                                 |Standard Load Balancer       |
+                                 |Type: Basic                  |
                +-----------------+--------------+--------------+----------------+
-               |                               |                               |
+               |                                |                               |
                |                                |                               |
 +--------------v--------------+  +--------------v--------------+ +--------------v--------------+
 |  Central US 1               |  |  Central US 2               | |  Central US 3               |
 | +-------------------------+ |  | +-------------------------+ | | +-------------------------+ |
-| |AKSWorkerNode 01       | |  | |AKSWorkerNode 02       | | | |AKSWorkerNode 03       | |
+| |AKS Worker Node 01       | |  | |AKS Worker Node 02       | | | |AKS Worker Node 03       | |
 | +-------------------------+ |  | +-------------------------+ | | +-------------------------+ |
-| |RancherServerpod   | |  | |RancherServerpod   | | | |RancherServerpod   | |
+| |Rancher Server pod       | |  | |Rancher Server pod       | | | |Rancher Server pod       | |
 | |and other related pods   | |  | |and other related pods   | | | |and other related pods   | |
 | |                         | |  | |                         | | | |                         | |
 | +-------------------------+ |  | +-------------------------+ | | +-------------------------+ |
-| |Ingress-Nginx-Controller| |  | |Ingress-Nginx-Controller| | | |Ingress-Nginx-Controller| |
+| |Ingress-Nginx-Controller | |  | |Ingress-Nginx-Controller | | | |Ingress-Nginx-Controller | |
 | +-------------------------+ |  | +-------------------------+ | | +-------------------------+ |
-| |Worker           | |  | |Worker           | | | |Worker           | |
+| |Worker                   | |  | |Worker                   | | | |Worker                   | |
 | +-------------------------+ |  | +-------------------------+ | | +-------------------------+ |
 |                             |  |                             | |                             |
 +-----------------------------+  +-----------------------------+ +-----------------------------+
-
-
-
-
-
-
-
-
-
-                                         
 ```
