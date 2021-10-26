@@ -5,20 +5,20 @@
                |
                |
 +--------------+--------------+
-|StandardLoadBalancer |
-|Type: Basic                  |            
-+--------------+--------------+
+|Standard Load Balancer       |
+|Type: Basic                  |
++--------------+--------------+
                |
                |
    +-----------v-------------+
-   |AKSWorkerNode 01       |
+   |AKS Worker Node 01       |
    +-------------------------+
-   |RancherServerpod   |
+   |Rancher Server pod       |
    |and other related pods   |
    |                         |
    +-------------------------+
-   |Ingress-Nginx-Controller|
+   |Ingress-Nginx-Controller |
    +-------------------------+
-   |Worker           |
+   |Worker                   |
    +-------------------------+
 ```
