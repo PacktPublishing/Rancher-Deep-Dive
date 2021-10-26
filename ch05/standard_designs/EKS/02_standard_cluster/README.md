@@ -10,24 +10,24 @@
 +---------------v-----------------+  +---------------v-----------------+  +---------------v-----------------+
 |        AZ: us-east-2a           |  |        AZ: us-east-2b           |  |        AZ: us-east-2c           |
 |   +-------------------------+   |  |   +-------------------------+   |  |   +-------------------------+   |
-|   | NetworkLoadBalancer  |   |  |   | NetworkLoadBalancer  |   |  |   | NetworkLoadBalancer  |   |
-|   | TCP Mode        |   |  |   | TCP Mode        |   |  |   | TCP Mode        |   |
+|   | Network Load Balancer   |   |  |   | Network Load Balancer   |   |  |   | Network Load Balancer   |   |
+|   | TCP Mode                |   |  |   | TCP Mode                |   |  |   | TCP Mode                |   |
 |   |                         |   |  |   |                         |   |  |   |                         |   |
 |   +-----------+-------------+   |  |   +-----------+-------------+   |  |   +-----------+-------------+   |
 |               |                 |  |               |                 |  |               |                 |
 | +-------------v---------------+ |  | +-------------v---------------+ |  | +-------------v---------------+ |
 | |  Node group:                | |  | |  Node group:                | |  | |  Node group:                | |
-| |  use-east-2a - worker       | |  | |  use-east-2b - worker       | |  | |  use-east-2c - worker       | |
+| |  us-east-2a - worker        | |  | |  us-east-2b - worker        | |  | |  us-east-2c - worker        | |
 | | +-------------------------+ | |  | | +-------------------------+ | |  | | +-------------------------+ | |
-| | |EKSWorkerNode a01      | | |  | | |EKSWorkerNode b01      | | |  | | |EKSWorkerNode c01      | | |
+| | |EKS Worker Node a01      | | |  | | |EKS Worker Node b01      | | |  | | |EKS Worker Node c01      | | |
 | | +-------------------------+ | |  | | +-------------------------+ | |  | | +-------------------------+ | |
-| | |RancherServerpod   | | |  | | |RancherServerpod   | | |  | | |RancherServerpod   | | |
+| | |Rancher Server pod       | | |  | | |Rancher Server pod       | | |  | | |Rancher Server pod       | | |
 | | |and other related pods   | | |  | | |and other related pods   | | |  | | |and other related pods   | | |
 | | |                         | | |  | | |                         | | |  | | |                         | | |
 | | +-------------------------+ | |  | | +-------------------------+ | |  | | +-------------------------+ | |
-| | |Ingress-Nginx-Controller| | |  | | |Ingress-Nginx-Controller| | |  | | |Ingress-Nginx-Controller| | |
+| | |Ingress-Nginx-Controller | | |  | | |Ingress-Nginx-Controller | | |  | | |Ingress-Nginx-Controller | | |
 | | +-------------------------+ | |  | | +-------------------------+ | |  | | +-------------------------+ | |
-| | |Worker           | | |  | | |Worker           | | |  | | |Worker           | | |
+| | |Worker                   | | |  | | |Worker                   | | |  | | |Worker                   | | |
 | | +-------------------------+ | |  | | +-------------------------+ | |  | | +-------------------------+ | |
 | |                             | |  | |                             | |  | |                             | |
 | +-----------------------------+ |  | +-----------------------------+ |  | +-----------------------------+ |
