@@ -4,25 +4,25 @@
                        +----+----+
                             |
                        +----v----+
-                       |Route53|
+                       |Route 53 |
                        +----+----+
                             |
                +------------v------------+
-               | NetworkLoadBalancer  |
-               | TCP Mode        |
+               | Network Load Balancer   |
+               | TCP Mode                |
                |                         |
             +--+-------------------------++
             |                             |
             |                             |
 +-----------v-------------+  +------------v------------+
-|EKSWorkerNode 01       |  |EKSWorkerNode 02       |
+|EKS Worker Node 01       |  |EKS Worker Node 02       |
 +-------------------------+  +-------------------------+
-|RancherServerpod   |  |RancherServerpod   |
+|Rancher Server pod       |  |Rancher Server pod       |
 |and other related pods   |  |and other related pods   |
 |                         |  |                         |
 +-------------------------+  +-------------------------+
-|Ingress-Nginx-Controller|  |Ingress-Nginx-Controller|
+|Ingress-Nginx-Controller |  |Ingress-Nginx-Controller |
 +-------------------------+  +-------------------------+
-|Worker           |  |Worker           |
+|Worker                   |  |Worker                   |
 +-------------------------+  +-------------------------+
 ```
