@@ -1,0 +1,39 @@
+nodes:
+  - address: node01.support.tools
+    hostname_override: node1
+    internal_address: 192.168.1.101
+    user: ubuntu
+    role:
+      - controlplane
+      - worker
+      - etcd
+
+cluster_name: examplecluster
+kubernetes_version: v1.21.5-rancher1-1
+
+ingress:
+  provider: nginx
+
+services:
+  kube-api:
+    audit_log:
+      enabled: true
+  etcd:
+    backup_config:
+      enabled: true       # enables recurring etcd snapshots
+      interval_hours: 3   # time increment between snapshots
+      retention: 72       # time in days before snapshot purge
+      # Optional S3
+      s3backupconfig:
+        access_key: "AKIAIOSFODNN7EXAMPLE"
+        secret_key:  "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        bucket_name: "etcd"
+        folder: "examplecluster"
+        endpoint: "s3.us-west-1.amazonaws.com"
+        region: "us-west-1"
+
+dns:
+  provider: coredns
+  upstreamnameservers:
+  - 1.1.1.1
+  - 1.0.0.1

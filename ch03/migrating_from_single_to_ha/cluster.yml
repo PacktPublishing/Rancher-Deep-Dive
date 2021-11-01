@@ -1,0 +1,28 @@
+nodes:
+  - address: 1.1.1.1
+    hostname_override: node1
+    user: ubuntu
+    role:
+      - controlplane
+      - worker
+      - etcd
+  - address: 2.2.2.2
+    hostname_override: node2
+    user: ubuntu
+    role:
+      - controlplane
+      - worker
+      - etcd
+  - address: 3.3.3.3
+    hostname_override: node3
+    user: ubuntu
+    role:
+      - controlplane
+      - worker
+      - etcd
+
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h

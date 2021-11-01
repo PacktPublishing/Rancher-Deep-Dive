@@ -1,0 +1,28 @@
+INFO[0000] Starting restoring snapshot on etcd hosts
+INFO[0000] [dialer] Setup tunnel for host [node01]
+INFO[0000] [hosts] Cleaning up host [node01]
+INFO[0000] [hosts] Running cleaner container on host [node01]
+INFO[0000] [kube-cleaner] Pulling image [rancher/rke-tools:v0.1.15] on host [node01]
+INFO[0004] [kube-cleaner] Successfully pulled image [rancher/rke-tools:v0.1.15] on host [node01]
+INFO[0004] [kube-cleaner] Successfully started [kube-cleaner] container on host [node01]
+INFO[0004] [hosts] Removing cleaner container on host [node01]
+INFO[0004] [hosts] Removing dead container logs on host [node01]
+INFO[0005] [cleanup] Successfully started [rke-log-cleaner] container on host [node01]
+INFO[0005] [remove/rke-log-cleaner] Successfully removed container on host [node01]
+INFO[0005] [hosts] Successfully cleaned up host [node01]
+INFO[0005] [etcd] Restoring [single-node-etcd-snapshot] snapshot on etcd host [node01]
+INFO[0005] [etcd] Pulling image [rancher/coreos-etcd:v3.2.18] on host [node01]
+INFO[0007] [etcd] Successfully pulled image [rancher/coreos-etcd:v3.2.18] on host [node01]
+INFO[0007] [etcd] Successfully started [etcd-restore] container on host [node01]
+INFO[0007] [etcd] Building up etcd plane..
+INFO[0007] [etcd] Successfully started [etcd] container on host [node01]
+INFO[0007] [etcd] Saving snapshot [etcd-rolling-snapshots] on host [node01]
+INFO[0007] [etcd] Successfully started [etcd-rolling-snapshots] container on host [node01]
+INFO[0012] [certificates] Successfully started [rke-bundle-cert] container on host [node01]
+INFO[0013] [certificates] successfully saved certificate bundle [/opt/rke/etcd-snapshots//pki.bundle.tar.gz] on host [node01]
+INFO[0013] [etcd] Successfully started [rke-log-linker] container on host [node01]
+INFO[0013] [remove/rke-log-linker] Successfully removed container on host [node01]
+INFO[0013] [etcd] Successfully started etcd plane..
+INFO[0013] [certificates] Successfully started [rke-bundle-cert] container on host [node01]
+INFO[0013] [certificates] successfully extracted certificate bundle on host [node01] to backup path [/etc/kubernetes/.tmp/]
+INFO[0013] Finished restoring snapshot [single-node-etcd-snapshot] on all etcd hosts

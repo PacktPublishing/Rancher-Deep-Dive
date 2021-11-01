@@ -1,0 +1,119 @@
+nodes:
+  - address: etcd01.support.tools
+    hostname_override: etcd01
+    internal_address: 192.168.1.101
+    user: ubuntu
+    role:
+      - etcd
+  - address: etcd02.support.tools
+    hostname_override: etcd02
+    internal_address: 192.168.1.102
+    user: ubuntu
+    role:
+      - etcd
+  - address: etcd03.support.tools
+    hostname_override: etcd03
+    internal_address: 192.168.1.103
+    user: ubuntu
+    role:
+      - etcd
+  - address: etcd04.support.tools
+    hostname_override: etcd04
+    internal_address: 192.168.1.104
+    user: ubuntu
+    role:
+      - etcd
+  - address: etcd05.support.tools
+    hostname_override: etcd05
+    internal_address: 192.168.1.106
+    user: ubuntu
+    role:
+      - etcd
+  - address: cp01.support.tools
+    hostname_override: cp01
+    internal_address: 192.168.1.111
+    user: ubuntu
+    role:
+      - controlplane
+  - address: cp02.support.tools
+    hostname_override: cp02
+    internal_address: 192.168.1.112
+    user: ubuntu
+    role:
+      - controlplane
+  - address: cp03.support.tools
+    hostname_override: cp03
+    internal_address: 192.168.1.113
+    user: ubuntu
+    role:
+      - controlplane
+  - address: cp04.support.tools
+    hostname_override: cp04
+    internal_address: 192.168.1.114
+    user: ubuntu
+    role:
+      - controlplane
+  - address: work01.support.tools
+    hostname_override: work01
+    internal_address: 192.168.1.121
+    user: ubuntu
+    role:
+      - worker
+    labels:
+      app: ingress      
+  - address: work02.support.tools
+    hostname_override: work02
+    internal_address: 192.168.1.122
+    user: ubuntu
+    role:
+      - worker
+    labels:
+      app: ingress      
+  - address: work03.support.tools
+    hostname_override: work03
+    internal_address: 192.168.1.123
+    user: ubuntu
+    role:
+      - worker
+    labels:
+      app: ingress      
+  - address: work04.support.tools
+    hostname_override: work04
+    internal_address: 192.168.1.124
+    user: ubuntu
+    role:
+      - worker
+    labels:
+      app: ingress      
+
+cluster_name: examplecluster
+kubernetes_version: v1.21.5-rancher1-1
+
+ingress:
+  provider: nginx
+  node_selector:
+    app: ingress  
+
+services:
+  kube-api:
+    audit_log:
+      enabled: true
+  etcd:
+    backup_config:
+      enabled: true       # enables recurring etcd snapshots
+      interval_hours: 3   # time increment between snapshots
+      retention: 72       # time in days before snapshot purge
+      # Optional S3
+      s3backupconfig:
+        access_key: "AKIAIOSFODNN7EXAMPLE"
+        secret_key:  "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        bucket_name: "etcd"
+        folder: "examplecluster"
+        endpoint: "s3.us-west-1.amazonaws.com"
+        region: "us-west-1"
+
+dns:
+  provider: coredns
+  upstreamnameservers:
+  - 1.1.1.1
+  - 1.0.0.1
