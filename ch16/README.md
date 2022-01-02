@@ -1,0 +1,1 @@
+# Chapter 16: Setting up a CICD pipeline and image registry (Drone CI & Harbor)

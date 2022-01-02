@@ -1,0 +1,1 @@
+# Chapter 7: Deploying a hosted cluster with Rancher
