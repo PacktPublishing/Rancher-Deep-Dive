@@ -1,1 +1,1 @@
-# Rancher and Kubernetes high-level architecture
+# Chapter 2: Rancher and Kubernetes high-level architecture 

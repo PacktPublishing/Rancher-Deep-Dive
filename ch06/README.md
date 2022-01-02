@@ -1,0 +1,1 @@
+# Chapter 6: Creating an RKE cluster using Rancher
