@@ -1,0 +1,15 @@
+write-kubeconfig-mode: "0644"
+kube-apiserver-arg: "kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname"
+
+etcd-disable-snapshots: false
+etcd-snapshot-schedule-cron: "0 */12 * * *"
+etcd-snapshot-retention: "5"
+etcd-snapshot-dir: "/var/lib/rancher/rke2/server/db/snapshots"
+
+etcd-s3: true
+etcd-s3-endpoint: "s3.us-west-1.amazonaws.com"
+etcd-s3-access-key: "AKIAIOSFODNN7EXAMPLE"
+etcd-s3-secret-key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+etcd-s3-bucket: "etcd"
+etcd-s3-region: "us-west-1"
+etcd-s3-folder: "examplecluster"
