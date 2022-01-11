@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-go-example
+  labels:
+    app: metrics-go-example
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '8080'   
+spec:
+  selector:
+    matchLabels:
+      app: metrics-go-example
+  template:
+    metadata:
+      labels:
+        app: metrics-go-example
+    spec:
+      containers:
+      - name: metrics-go-example
+        image: cube8021/metrics-go-example:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metrics-go-example
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '8080'  
+spec:
+  selector:
+    app: metrics-go-example
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

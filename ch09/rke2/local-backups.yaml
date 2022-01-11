@@ -1,0 +1,9 @@
+write-kubeconfig-mode: "0644"
+kube-apiserver-arg: "kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname"
+
+etcd-disable-snapshots: false
+etcd-snapshot-schedule-cron: "0 */12 * * *"
+etcd-snapshot-retention: "5"
+etcd-snapshot-dir: "/var/lib/rancher/rke2/server/db/snapshots"
+
+etcd-s3: false
