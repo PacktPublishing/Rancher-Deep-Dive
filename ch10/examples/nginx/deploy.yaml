@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-nginx-example
+  labels:
+    app: metrics-nginx-example
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '9113'
+spec:
+  selector:
+    matchLabels:
+      app: metrics-nginx-example
+  template:
+    metadata:
+      labels:
+        app: metrics-nginx-example
+    spec:
+      containers:
+      - image: cube8021/metrics-nginx-example:latest
+        name: nginx
+        ports:
+          - containerPort: 80
+      - command:
+        - /bin/nginx-prometheus-exporter
+        - -nginx.scrape-uri=http://status.localhost:8080/stub_status
+        image: nginx/nginx-prometheus-exporter:0.10.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /metrics
+            port: metrics
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: exporter
+        ports:
+        - containerPort: 9117
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /metrics
+            port: metrics
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+      hostAliases:
+      - hostnames:
+        - status.localhost
+        ip: 127.0.0.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metrics-nginx-example
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '9113'  
+spec:
+  selector:
+    app: metrics-nginx-example
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
