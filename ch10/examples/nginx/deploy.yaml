@@ -19,40 +19,23 @@ spec:
         app: metrics-nginx-example
     spec:
       containers:
-      - image: cube8021/metrics-nginx-example:latest
+      - image: cube8021/metrics-nginx-example:v0.2
+        imagePullPolicy: IfNotPresent
         name: nginx
         ports:
-          - containerPort: 80
+        - containerPort: 80
+          name: http
+          protocol: TCP
       - command:
-        - /bin/nginx-prometheus-exporter
+        - /usr/bin/nginx-prometheus-exporter
         - -nginx.scrape-uri=http://status.localhost:8080/stub_status
         image: nginx/nginx-prometheus-exporter:0.10.0
         imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /metrics
-            port: metrics
-            scheme: HTTP
-          initialDelaySeconds: 15
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
         name: exporter
         ports:
-        - containerPort: 9117
+        - containerPort: 9113
           name: metrics
           protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /metrics
-            port: metrics
-            scheme: HTTP
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
       hostAliases:
       - hostnames:
         - status.localhost
