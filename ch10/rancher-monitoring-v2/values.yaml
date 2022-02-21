@@ -1,0 +1,50 @@
+alertmanager:
+  alertmanagerSpec:
+    configSecret: alertmanager-rancher-monitoring-alertmanager
+    useExistingSecret: true
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+    - grafana.a1-rke2-dev.support.tools
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    enabled: true
+    size: 5G
+    storageClassName: longhorn
+    subPath: null
+    type: statefulset
+ingressNginx:
+  enabled: true
+  namespace: kube-system
+prometheus:
+  ingress:
+    enabled: true
+    hosts:
+    - prometheus.a1-rke2-dev.support.tools
+  prometheusSpec:
+    podMonitorNamespaceSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    ruleNamespaceSelector: {}
+    evaluationInterval: 1m
+    retentionSize: 50GiB
+    scrapeInterval: 1m
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 50Gi
+          storageClassName: longhorn
+          volumeMode: Filesystem
+rke2ControllerManager:
+  enabled: true
+rke2Etcd:
+  enabled: true
+rke2Proxy:
+  enabled: true
+rke2Scheduler:
+  enabled: true
