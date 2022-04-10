@@ -1,0 +1,39 @@
+---
+
+
+
+
+
+
+kind: pipeline
+type: kubernetes
+name: Example-App
+
+steps:
+  - name: Docker-Build
+    image: plugins/docker
+    settings:
+      tags:
+        - ${DRONE_BUILD_NUMBER}
+        - ${DRONE_COMMIT_BRANCH}
+        - latest
+      username:
+        from_secret: docker-username
+      password:
+        from_secret: docker-password
+
+  - name: Deploy-to-k8s
+    image: supporttools/kube-builder:latest
+    settings:
+      kubernetes_server:
+        from_secret: kubernetes_server
+      kubernetes_token:
+        from_secret: kubernetes_token
+    commands:
+      - bash /usr/local/bin/init-kubectl
+      - kubectl create ns hello-world --dry-run=client | kubectl apply -f
+      - kubectl apply -n hello-world -f deploy.yaml
+
+
+
+

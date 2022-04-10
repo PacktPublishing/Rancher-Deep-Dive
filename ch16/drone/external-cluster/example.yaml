@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Config
+clusters:
+- name: "example-cluster"
+  cluster:
+    server: "https://rancher.example.com/k8s/clusters/c-m-abcdefgj"
+
+users:
+- name: "example-cluster"
+  user:
+    token: "kubeconfig-user-abcdefgj:1234678912346789123467891234678912346789"
+
+
+contexts:
+- name: "example-cluster"
+  context:
+    user: "example-cluster"
+    cluster: "example-cluster"
+
+current-context: "example-cluster"

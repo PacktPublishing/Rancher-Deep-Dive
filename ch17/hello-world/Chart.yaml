@@ -1,0 +1,15 @@
+apiVersion: v2
+name: hello-world
+description: hello-world
+type: application
+version: 0.1.0
+appVersion: 1.0.0
+keywords:
+  - hello-world
+sources:
+  - https://github.com/SupportTools/hello-world
+maintainers:
+  - name: Matthew Mattox
+    email: mmattox@support.tools
+    url: https://github.com/mattmattox/
+icon: https://raw.githubusercontent.com/SupportTools/hello-world/main/img/logo.svg
