@@ -1,4 +1,4 @@
-# Default values for ..
+# Default values for mychart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -80,27 +80,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-frontend:
-  image: supporttools/hello-world
-  tag: v0.1.2
-
-  ingress:
-    enabled: true
-    hosts:
-      - host: hello-world.example.local
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-
-apiserver:
-  image: supporttools/hello-world-api
-  tag: v0.1.1-rc1
-
-  ingress:
-    enabled: false
-    hosts:
-      - host: chart-example.local
-        paths:
-          - path: /
-            pathType: ImplementationSpecific

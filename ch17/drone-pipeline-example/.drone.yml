@@ -1,0 +1,120 @@
+---
+kind: pipeline
+name: Portal
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+environment:
+  DOCKER_HOST: tcp://docker-in-docker:2375
+  DOCKER_CLI_EXPERIMENTAL: enabled
+
+steps:
+  - name: Waiting for Docker to start
+    image: ncrmro/docker-buildx:19.03.10
+    commands:
+    - echo 'Waiting for docker to start...'
+    - while ! docker info; do sleep 1; done
+
+  - name: Docker Build
+    image: ncrmro/docker-buildx:19.03.10
+    environment:
+      DOCKER_USERNAME:
+        from_secret: harbor-username
+      DOCKER_PASSWORD:
+        from_secret: harbor-password
+    commands:
+    - sh ./docker-build.sh
+
+  - name: Deploy-to-Master
+    image: supporttools/kube-builder:latest
+    environment:
+      DOCKER_USERNAME:
+        from_secret: harbor-username
+      DOCKER_PASSWORD:
+        from_secret: harbor-password
+    settings:
+      kubernetes_server:
+        from_secret: k8s_devops_server
+      kubernetes_token:
+        from_secret: k8s_devops_token
+    commands:
+      - bash deploy.sh
+    when:
+      event:
+        - push
+        - pull_request
+
+  - name: Deploy-to-Dev
+    image: supporttools/kube-builder:latest
+    environment:
+      DOCKER_USERNAME:
+        from_secret: harbor-username
+      DOCKER_PASSWORD:
+        from_secret: harbor-password
+    settings:
+      kubernetes_server:
+        from_secret: k8s_dev_server
+      kubernetes_token:
+        from_secret: k8s_dev_token
+    commands:
+      - bash deploy.sh dev ${TAG}
+    when:
+     event:
+     - deployment
+     - promote
+     target:
+     - dev
+
+  - name: Deploy-to-Staging
+    image: supporttools/kube-builder
+    environment:
+      DOCKER_USERNAME:
+        from_secret: harbor-username
+      DOCKER_PASSWORD:
+        from_secret: harbor-password
+    settings:
+      kubernetes_server:
+        from_secret: k8s_prd_server
+      kubernetes_token:
+        from_secret: k8s_prd_token
+    commands:
+      - bash deploy.sh stg ${TAG}
+    when:
+     event:
+     - deployment
+     - promote
+     target:
+     - staging
+
+  - name: Deploy-to-Production
+    image: supporttools/kube-builder
+    environment:
+      DOCKER_USERNAME:
+        from_secret: harbor-username
+      DOCKER_PASSWORD:
+        from_secret: harbor-password
+    settings:
+      kubernetes_server:
+        from_secret: k8s_prd_server
+      kubernetes_token:
+        from_secret: k8s_prd_token
+    commands:
+      - bash deploy.sh prd ${TAG}
+    when:
+     event:
+     - deployment
+     - promote
+     target:
+     - production
+
+services:
+- name: docker-in-docker
+  docker:
+  image: docker:19.03.12-dind
+  command: ["dockerd", "--host", "0.0.0.0", "--experimental"]
+  privileged: true
