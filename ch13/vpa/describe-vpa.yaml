@@ -1,0 +1,47 @@
+kubectl describe vpa hello-world 
+Name: hello-world 
+Namespace: default 
+API Version: autoscaling.k8s.io/v1beta2 
+Kind: VerticalPodAutoscaler 
+[...] 
+Spec: 
+  Target Ref: 
+    API Version: apps/v1 
+    Kind: Deployment 
+    Name: hello-world 
+  Update Policy: 
+    Update Mode: Off 
+Status: 
+  Conditions: 
+    Last Transition Time:  2022-02-20T11:08:45Z 
+    Status: True 
+    Type: RecommendationProvided 
+  Recommendation: 
+    Container Recommendations: 
+      Container Name: hello-world 
+      Lower Bound: 
+        Cpu: 12m 
+        Memory: 247917233 
+      Target: 
+        Cpu: 63m 
+        Memory: 380258472 
+      Uncapped Target: 
+        Cpu: 63m 
+        Memory: 380258472 
+      Upper Bound: 
+        Cpu: 137m 
+        Memory: 561393834 
+      Container Name:  hello-world 
+      Lower Bound: 
+        Cpu: 12m 
+        Memory: 131072k 
+      Target: 
+        Cpu: 12m 
+        Memory: 131072k 
+      Uncapped Target: 
+        Cpu: 12m 
+        Memory: 131072k 
+      Upper Bound: 
+        Cpu: 16m 
+        Memory: 131072k 
+Events: <none> 
