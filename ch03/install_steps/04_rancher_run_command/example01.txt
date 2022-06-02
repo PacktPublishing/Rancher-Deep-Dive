@@ -1,0 +1,10 @@
+docker run -d \
+--name rancher_server \
+--restart=unless-stopped \
+-p 80:80 \
+-p 443:443 \
+-v /etc/rancher/ssl/tls.cert:/etc/rancher/ssl/cert.pem \
+-v /etc/rancher/ssl/tls.key:/etc/rancher/ssl/key.pem \
+--privileged \
+rancher/rancher:v2.5.8 \
+--no-cacerts
