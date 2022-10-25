@@ -55,3 +55,7 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 ## Get to Know the Author
 **Matthew Mattox**
 Since 2019, Matthew Mattox has served as a SUSE principal support engineer, providing client-focused support. Having experience in both engineering and DevOps, Matthew has a deep understanding of Kubernetes, Docker, Rancher, Longhorn, and the OPA Gatekeeper. Apart from designing custom solutions to solve changing problems, he was named "Bullfighter of the Year" for his outstanding work at Rancher Labs. One of his primary goals is to make IT a profit center within your company, not a cost center.
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781803246093">https://packt.link/free-ebook/9781803246093 </a> </p>
