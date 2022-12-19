@@ -59,6 +59,10 @@ With the following software and hardware list you can run all code files present
 
 We also provide a PDF file that has color images of the screenshots/diagrams used in this book. [Click here to download it](https://static.packt-cdn.com/downloads/9781803246093_ColorImages.pdf).
 
+## Errata
+
+* Page 18 (Paragraph 8, line 2): **trail** _should be_ **trial**
+
 ### Related products
 * The Kubernetes Bible [[Packt]](https://www.packtpub.com/product/cloud_and_networking/9781838827694?utm_source=github&utm_medium=repository&utm_campaign=9781838827694) [[Amazon]](https://www.amazon.com/dp/1838827692)
 
