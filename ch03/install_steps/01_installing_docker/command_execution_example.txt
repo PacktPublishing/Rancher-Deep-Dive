@@ -1,0 +1,125 @@
+glovecchio@rancherdeepdive-vm-1-djgv:~$ sudo su -
+root@rancherdeepdive-vm-1-djgv:~# curl -sSL https://releases.rancher.com/install-docker/20.10.sh | sh - ; sudo usermod -aG docker ubuntu ; newgrp docker ; sudo sysctl -w net.bridge.bridge-nf-call-iptables=1
+# Executing docker install script, commit: a8a6b338bdfedd7ddefb96fe3e7fe7d4036d945a
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sh -c mkdir -p /etc/apt/keyrings && chmod -R 0755 /etc/apt/keyrings
++ sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
++ sh -c chmod a+r /etc/apt/keyrings/docker.gpg
++ sh -c echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get update -qq >/dev/null
+INFO: Searching repository for VERSION '20.10.24'
+INFO: apt-cache madison 'docker-ce' | grep '20.10.24' | head -1 | awk '{$1=$1};1' | cut -d' ' -f 3
+INFO: apt-cache madison 'docker-ce-cli' | grep '20.10.24' | head -1 | awk '{$1=$1};1' | cut -d' ' -f 3
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq docker-ce=5:20.10.24~3-0~ubuntu-jammy docker-ce-cli=5:20.10.24~3-0~ubuntu-jammy containerd.io docker-compose-plugin docker-ce-rootless-extras=5:20.10.24~3-0~ubuntu-jammy >/dev/null
++ start_docker
++ [ ! -z ]
++ [ -d /run/systemd/system ]
++ sh -c systemctl start docker
++ sh -c docker version
+Client: Docker Engine - Community
+ Version:           20.10.24
+ API version:       1.41
+ Go version:        go1.19.7
+ Git commit:        297e128
+ Built:             Tue Apr  4 18:21:03 2023
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          20.10.24
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.19.7
+  Git commit:       5d6db84
+  Built:            Tue Apr  4 18:18:48 2023
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.7.21
+  GitCommit:        472731909fa34bd7bc9c087e4c27943f9835f111
+ runc:
+  Version:          1.1.13
+  GitCommit:        v1.1.13-0-g58aa920
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+================================================================================
+
+To run Docker as a non-privileged user, consider setting up the
+Docker daemon in rootless mode for your user:
+
+    dockerd-rootless-setuptool.sh install
+
+Visit https://docs.docker.com/go/rootless/ to learn about rootless mode.
+
+
+To run the Docker daemon as a fully privileged service, but granting non-root
+users access, refer to https://docs.docker.com/go/daemon-access/
+
+WARNING: Access to the remote API on a privileged Docker daemon is equivalent
+         to root access on the host. Refer to the 'Docker daemon attack surface'
+         documentation for details: https://docs.docker.com/go/attack-surface/
+
+================================================================================
+
+root@rancherdeepdive-vm-1-djgv:~# docker info
+Client:
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  app: Docker App (Docker Inc., v0.9.1-beta3)
+  buildx: Docker Buildx (Docker Inc., v0.10.4-docker)
+  compose: Docker Compose (Docker Inc., v2.29.2)
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+ Server Version: 20.10.24
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: systemd
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 472731909fa34bd7bc9c087e4c27943f9835f111
+ runc version: v1.1.13-0-g58aa920
+ init version: de40ad0
+ Security Options:
+  apparmor
+  seccomp
+   Profile: default
+  cgroupns
+ Kernel Version: 6.2.0-1013-gcp
+ Operating System: Ubuntu 22.04.3 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 2
+ Total Memory: 7.745GiB
+ Name: rancherdeepdive-vm-1-djgv
+ ID: 2IEM:JFZR:WFLF:62NK:KPXI:CFTH:4XNN:NQP4:IDD6:3DRL:TKSQ:URMG
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+root@rancherdeepdive-vm-1-djgv:~# 

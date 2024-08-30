@@ -1,0 +1,35 @@
+root@rancherdeepdive-vm-1-djgv:~# vi /etc/docker/daemon.json
+root@rancherdeepdive-vm-1-djgv:~# cat /etc/docker/daemon.json 
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }
+}
+root@rancherdeepdive-vm-1-djgv:~# systemctl restart docker
+root@rancherdeepdive-vm-1-djgv:~# systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Fri 2024-08-30 08:31:18 UTC; 4s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 4055 (dockerd)
+      Tasks: 8
+     Memory: 21.8M
+        CPU: 251ms
+     CGroup: /system.slice/docker.service
+             └─4055 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Aug 30 08:31:17 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:17.812681526Z" level=info msg=">
+Aug 30 08:31:17 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:17.812692743Z" level=info msg=">
+Aug 30 08:31:17 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:17.824574637Z" level=info msg=">
+Aug 30 08:31:17 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:17.826720760Z" level=info msg=">
+Aug 30 08:31:18 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:18.105036931Z" level=info msg=">
+Aug 30 08:31:18 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:18.155485601Z" level=info msg=">
+Aug 30 08:31:18 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:18.171917793Z" level=info msg=">
+Aug 30 08:31:18 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:18.171983553Z" level=info msg=">
+Aug 30 08:31:18 rancherdeepdive-vm-1-djgv systemd[1]: Started Docker Application Container Engine.
+Aug 30 08:31:18 rancherdeepdive-vm-1-djgv dockerd[4055]: time="2024-08-30T08:31:18.194999146Z" level=info msg=">
+lines 1-22/22 (END)
+root@rancherdeepdive-vm-1-djgv:~#

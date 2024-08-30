@@ -1,0 +1,102 @@
+root@rancherdeepdive-vm-1-djgv:~# docker run -d \
+--name rancher_server \
+--restart=unless-stopped \
+-p 80:80 \
+-p 443:443 \
+-v /etc/rancher/ssl/tls.crt:/etc/rancher/ssl/cert.pem \
+-v /etc/rancher/ssl/tls.key:/etc/rancher/ssl/key.pem \
+--privileged \
+rancher/rancher:v2.7.10 \
+--no-cacerts
+Unable to find image 'rancher/rancher:v2.7.10' locally
+v2.7.10: Pulling from rancher/rancher
+6ef40564a417: Pull complete 
+810d0cb66d15: Pull complete 
+4d01e5e9509e: Pull complete 
+9c54407e6012: Pull complete 
+3eaf3b5f6155: Pull complete 
+ac84df1d2e01: Pull complete 
+db512d5b2ba4: Pull complete 
+93ee75b0e0d5: Pull complete 
+b92e5888fdbb: Pull complete 
+e06b9751ccde: Pull complete 
+3ca1e5909f04: Pull complete 
+d96e2783c3f8: Pull complete 
+33b6857cd44c: Pull complete 
+c2e66b1fa59c: Pull complete 
+629a47ddbfa9: Pull complete 
+1a51456b331c: Pull complete 
+a041e6073c10: Pull complete 
+0ff14178b6ca: Pull complete 
+64e8e1c09b28: Pull complete 
+81721e441342: Pull complete 
+Digest: sha256:7e185b8cc8fe70e64b82e17dae93e4169081fa110f4a24e9c5783f1e94af869f
+Status: Downloaded newer image for rancher/rancher:v2.7.10
+7e44f29181589e167b90f15a26f2e7ce0ac32c5d9c7675b0b49fa90313e818d2
+root@rancherdeepdive-vm-1-djgv:~# docker ps
+CONTAINER ID   IMAGE                     COMMAND                  CREATED              STATUS              PORTS                                                                      NAMES
+7e44f2918158   rancher/rancher:v2.7.10   "entrypoint.sh --no-…"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   rancher_server
+root@rancherdeepdive-vm-1-djgv:~#
+
+#You may encounter the following error:
+root@rancherdeepdive-vm-1-djgv:~# docker logs -f rancher_server
+...
+...
+...
+time="2024-08-30T09:57:11.386954074Z" level=info msg="Run: k3s kubectl"
+time="2024-08-30T09:57:11.387128189Z" level=warning msg="Failed to find cpuset cgroup, you may need to add \"cgroup_enable=cpuset\" to your linux cmdline (/boot/cmdline.txt on a Raspberry Pi)"
+time="2024-08-30T09:57:11.387248527Z" level=error msg="Failed to find memory cgroup, you may need to add \"cgroup_memory=1 cgroup_enable=memory\" to your linux cmdline (/boot/cmdline.txt on a Raspberry Pi)"
+time="2024-08-30T09:57:11.387340086Z" level=fatal msg="failed to find memory cgroup, you may need to add \"cgroup_memory=1 cgroup_enable=memory\" to your linux cmdline (/boot/cmdline.txt on a Raspberry Pi)"
+2024/08/30 09:57:11 [FATAL] k3s exited with: exit status 1
+root@rancherdeepdive-vm-1-djgv:~#
+
+#You can solve it like this:
+root@rancherdeepdive-vm-1-djgv:~# vi /etc/default/grub #edit the GRUB_CMDLINE_LINUX variable
+root@rancherdeepdive-vm-1-djgv:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX
+GRUB_CMDLINE_LINUX="boot_user_args=cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory systemd.unified_cgroup_hierarchy=0"
+root@rancherdeepdive-vm-1-djgv:~# update-grub2
+Sourcing file `/etc/default/grub'
+Sourcing file `/etc/default/grub.d/40-force-partuuid.cfg'
+Sourcing file `/etc/default/grub.d/50-cloudimg-settings.cfg'
+Sourcing file `/etc/default/grub.d/init-select.cfg'
+Generating grub configuration file ...
+GRUB_FORCE_PARTUUID is set, will attempt initrdless boot
+Found linux image: /boot/vmlinuz-6.2.0-1013-gcp
+Found initrd image: /boot/initrd.img-6.2.0-1013-gcp
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+Adding boot menu entry for UEFI Firmware Settings ...
+done
+root@rancherdeepdive-vm-1-djgv:~# reboot now
+...
+...
+...
+#Done
+
+#You may encounter the following error:
+root@rancherdeepdive-vm-1-djgv:~# docker logs -f rancher_server
+...
+...
+...
+I0830 11:12:42.190547      27 conntrack.go:103] Set sysctl 'net/netfilter/nf_conntrack_max' to 131072
+F0830 11:12:42.190643      27 server.go:495] open /proc/sys/net/netfilter/nf_conntrack_max: permission denied
+...
+...
+...
+
+#You can solve it like this:
+root@rancherdeepdive-vm-1-djgv:~# sysctl -w net/netfilter/nf_conntrack_max=131072
+net.netfilter.nf_conntrack_max = 131072
+root@rancherdeepdive-vm-1-djgv:~# docker ps
+CONTAINER ID   IMAGE                     COMMAND                  CREATED         STATUS         PORTS                                                                      NAMES
+7e44f2918158   rancher/rancher:v2.7.10   "entrypoint.sh --no-…"   3 minutes ago   Up 3 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   rancher_server
+#Done
+
+root@rancherdeepdive-vm-1-djgv:~# docker logs rancher_server 2>&1 | grep "Bootstrap Password:"
+2024/08/30 12:31:36 [INFO] Bootstrap Password: bcwvdsvhcvpcx7qckmmr2sp845qv299jc8z2b2zq8vd9v2zjt4dfz4
+root@rancherdeepdive-vm-1-djgv:~# curl ifconfig.me
+34.154.103.216
+root@rancherdeepdive-vm-1-djgv:~#
+
+![Rancher Console](images/ch03_rancher_console.png)

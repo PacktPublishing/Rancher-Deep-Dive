@@ -1,0 +1,8 @@
+root@rancherdeepdive-vm-1-djgv:~# curl --output install_docker.sh https://releases.rancher.com/install-docker/20
+.10.sh
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 21737    0 21737    0     0  66391      0 --:--:-- --:--:-- --:--:-- 66474
+root@rancherdeepdive-vm-1-djgv:~# ls -l install_docker.sh 
+-rw-r--r-- 1 root docker 21737 Aug 30 08:26 install_docker.sh
+root@rancherdeepdive-vm-1-djgv:~#

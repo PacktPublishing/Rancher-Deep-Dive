@@ -1,0 +1,24 @@
+root@rancherdeepdive-vm-1-djgv:~# docker ps
+CONTAINER ID   IMAGE                     COMMAND                  CREATED       STATUS          PORTS                                                                      NAMES
+7e44f2918158   rancher/rancher:v2.7.10   "entrypoint.sh --no-…"   2 hours ago   Up 53 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   rancher_server
+root@rancherdeepdive-vm-1-djgv:~# docker stop rancher_server
+rancher_server
+root@rancherdeepdive-vm-1-djgv:~# docker create --volumes-from rancher_server --name rancher-data-$(date +"%Y%m%d_%H%M%S") rancher/rancher:v2.7.10
+0cf2784bd4ee3f7ea28bd93546c73a57f41c1736ce3c1745803817dfd0301234
+root@rancherdeepdive-vm-1-djgv:~# docker ps -a
+CONTAINER ID   IMAGE                     COMMAND                  CREATED         STATUS                          PORTS     NAMES
+0cf2784bd4ee   rancher/rancher:v2.7.10   "entrypoint.sh"          5 seconds ago   Created                                   rancher-data-20240830_142806
+7e44f2918158   rancher/rancher:v2.7.10   "entrypoint.sh --no-…"   2 hours ago     Exited (1) About a minute ago             rancher_server
+root@rancherdeepdive-vm-1-djgv:~# docker run --volumes-from rancher-data-20240830_142806 -v $PWD:/backup:z busybox tar pzcvf /backup/rancher-data-backup-20240830_142806.tar.gz /var/lib/rancher 
+tar: removing leading '/' from member names
+var/lib/rancher/
+var/lib/rancher/k3s-cluster-reset.log
+var/lib/rancher/k3s/
+var/lib/rancher/k3s/agent/
+var/lib/rancher/k3s/agent/containerd/
+...
+...
+...
+root@rancherdeepdive-vm-1-djgv:~# ls -lh rancher-data-backup-20240830_142806.tar.gz 
+-rw-r--r-- 1 root root 801M Aug 30 14:31 rancher-data-backup-20240830_142806.tar.gz
+root@rancherdeepdive-vm-1-djgv:~# docker start rancher_server
